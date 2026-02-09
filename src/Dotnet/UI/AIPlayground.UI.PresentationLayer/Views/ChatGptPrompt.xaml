@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:AIPlayground.UI.PresentationLayer.Resources"
              x:Class="AIPlayground.UI.PresentationLayer.Views.ChatGptPrompt"
              Title="ChatGPT Prompt">
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
             <!-- Ask Question Label -->
             <Label 
-                Text="Ask Question:"
+                Text="{x:Static resources:Translation.AskQuestion}"
                 FontSize="18"
                 FontAttributes="Bold" />
             
             <!-- Question Input -->
             <Editor 
                 Text="{Binding Question}"
-                Placeholder="Enter your question for ChatGPT..."
+                Placeholder="{x:Static resources:Translation.QuestionPlaceholder}"
                 HeightRequest="100"
                 AutoSize="TextChanges" />
             
             <!-- Submit Button -->
             <Button 
-                Text="Submit"
+                Text="{x:Static resources:Translation.Submit}"
                 Command="{Binding SubmitQuestionCommand}"
                 HorizontalOptions="Center"
                 WidthRequest="200" />
@@ -40,7 +41,7 @@
             
             <!-- Result Label -->
             <Label 
-                Text="Result:"
+                Text="{x:Static resources:Translation.Result}"
                 FontSize="18"
                 FontAttributes="Bold" />
             

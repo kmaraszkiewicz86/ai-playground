@@ -76,4 +76,7 @@
   <data name="Result" xml:space="preserve">
     <value>Result:</value>
   </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>Please enter a question</value>
+  </data>
 </root>

@@ -27,9 +27,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\ChatGptPrompt.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Views\ChatGptPrompt.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Resources\Translation.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Translation.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Translation.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Translation.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 	</ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using AIPlayground.UI.Domain.Models;
+using AIPlayground.UI.PresentationLayer.Resources;
 using SimpleCqrs;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace AIPlayground.UI.PresentationLayer.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Question))
             {
-                ErrorMessage = "Please enter a question";
+                ErrorMessage = Translation.ErrorEmptyQuestion;
                 return;
             }
 
