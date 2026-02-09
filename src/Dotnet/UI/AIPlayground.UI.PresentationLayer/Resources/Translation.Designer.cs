@@ -84,6 +84,15 @@ namespace AIPlayground.UI.PresentationLayer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while processing your request. Please try again..
+        /// </summary>
+        internal static string ErrorProcessingRequest {
+            get {
+                return ResourceManager.GetString("ErrorProcessingRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter your question for ChatGPT....
         /// </summary>
         internal static string QuestionPlaceholder {

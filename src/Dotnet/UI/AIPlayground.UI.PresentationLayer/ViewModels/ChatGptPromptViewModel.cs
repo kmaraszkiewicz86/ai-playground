@@ -4,12 +4,14 @@ using AIPlayground.UI.Domain.Models;
 using AIPlayground.UI.PresentationLayer.Resources;
 using SimpleCqrs;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace AIPlayground.UI.PresentationLayer.ViewModels
 {
     public partial class ChatGptPromptViewModel : ObservableObject
     {
         private readonly IAsyncQueryDispatcher _queryDispatcher;
+        private readonly ILogger<ChatGptPromptViewModel>? _logger;
 
         [ObservableProperty]
         private string _question = string.Empty;
@@ -23,9 +25,10 @@ namespace AIPlayground.UI.PresentationLayer.ViewModels
         [ObservableProperty]
         private string _errorMessage = string.Empty;
 
-        public ChatGptPromptViewModel(IAsyncQueryDispatcher queryDispatcher)
+        public ChatGptPromptViewModel(IAsyncQueryDispatcher queryDispatcher, ILogger<ChatGptPromptViewModel>? logger = null)
         {
             _queryDispatcher = queryDispatcher ?? throw new ArgumentNullException(nameof(queryDispatcher));
+            _logger = logger;
         }
 
         [RelayCommand]
@@ -52,12 +55,15 @@ namespace AIPlayground.UI.PresentationLayer.ViewModels
                 }
                 else
                 {
-                    ErrorMessage = string.Join(", ", result.Errors.Select(e => e.Message));
+                    var errorDetails = string.Join(", ", result.Errors.Select(e => e.Message));
+                    _logger?.LogError("Failed to get ChatGPT response: {ErrorDetails}", errorDetails);
+                    ErrorMessage = Translation.ErrorProcessingRequest;
                 }
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Error: {ex.Message}";
+                _logger?.LogError(ex, "Exception while processing ChatGPT query");
+                ErrorMessage = Translation.ErrorProcessingRequest;
             }
             finally
             {

@@ -79,4 +79,7 @@
   <data name="ErrorEmptyQuestion" xml:space="preserve">
     <value>Please enter a question</value>
   </data>
+  <data name="ErrorProcessingRequest" xml:space="preserve">
+    <value>An error occurred while processing your request. Please try again.</value>
+  </data>
 </root>
