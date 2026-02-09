@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using AIPlayground.UI.Configuration;
+using AIPlayground.UI.PresentationLayer.Extensions;
 
 namespace AIPlayground.UI
 {
@@ -18,6 +20,12 @@ namespace AIPlayground.UI
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
+            builder.Services
+                .AddChatGptHttpServices()
+                .AddUIServices()
+                .AddViews()
+                .AddViewModels();
 
             return builder.Build();
         }

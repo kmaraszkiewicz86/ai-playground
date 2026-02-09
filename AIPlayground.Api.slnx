@@ -9,11 +9,4 @@
     <Project Path="src/Dotnet/Api/AIPlayground.Api.PresentationLayer/AIPlayground.Api.PresentationLayer.csproj" />
     <Project Path="src/Dotnet/Api/AIPlayground.Api/AIPlayground.Api.csproj" />
   </Folder>
-  <Folder Name="/src/Dotnet/UI/">
-    <Project Path="src/Dotnet/UI/AIPlayground.UI.ApplicationLayer/AIPlayground.UI.ApplicationLayer.csproj" />
-    <Project Path="src/Dotnet/UI/AIPlayground.UI.Configuration/AIPlayground.UI.Configuration.csproj" />
-    <Project Path="src/Dotnet/UI/AIPlayground.UI.Domain/AIPlayground.UI.Domain.csproj" />
-    <Project Path="src/Dotnet/UI/AIPlayground.UI.Infrastructure/AIPlayground.UI.Infrastructure.csproj" />
-    <Project Path="src/Dotnet/UI/AIPlayground.UI.PresentationLayer/AIPlayground.UI.PresentationLayer.csproj" />
-  </Folder>
 </Solution>

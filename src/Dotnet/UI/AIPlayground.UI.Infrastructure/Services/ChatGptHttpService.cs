@@ -16,7 +16,6 @@ public class ChatGptHttpService : IChatGptHttpService
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
     }
 
-    /// <inheritdoc/>
     public async Task<Result<string>> SendPromptAsync(string prompt)
     {
         try

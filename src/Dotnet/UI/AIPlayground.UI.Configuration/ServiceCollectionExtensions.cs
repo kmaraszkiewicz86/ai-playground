@@ -16,13 +16,15 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Adds ChatGPT HTTP client services to the service collection
     /// </summary>
-    public static IServiceCollection AddChatGptHttpServices(this IServiceCollection services, string baseAddress, int timeoutSeconds = DefaultTimeoutSeconds)
+    public static IServiceCollection AddChatGptHttpServices(this IServiceCollection services)
     {
+        string baseAddress = "https://api.openai.com/v1/"; // Base URL for OpenAI API
+
         // Register HttpClient factory for ChatGPT
         services.AddHttpClient<IChatGptHttpService, ChatGptHttpService>(client =>
         {
             client.BaseAddress = new Uri(baseAddress);
-            client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
+            client.Timeout = TimeSpan.FromSeconds(DefaultTimeoutSeconds);
         });
 
         return services;
@@ -31,10 +33,8 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Adds all UI services to the service collection
     /// </summary>
-    public static IServiceCollection AddUIServices(this IServiceCollection services, string chatGptApiBaseAddress, int timeoutSeconds = DefaultTimeoutSeconds)
+    public static IServiceCollection AddUIServices(this IServiceCollection services)
     {
-        services.AddChatGptHttpServices(chatGptApiBaseAddress, timeoutSeconds);
-        
         // Configure SimpleCqrs
         services.ConfigureSimpleCqrs(typeof(GetChatGptAnswerQueryHandler).Assembly);
         

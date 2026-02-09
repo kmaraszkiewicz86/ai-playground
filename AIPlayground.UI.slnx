@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="src/Dotnet/UI/AIPlayground.UI.ApplicationLayer/AIPlayground.UI.ApplicationLayer.csproj" />
+  <Project Path="src/Dotnet/UI/AIPlayground.UI.Configuration/AIPlayground.UI.Configuration.csproj" />
+  <Project Path="src/Dotnet/UI/AIPlayground.UI.Domain/AIPlayground.UI.Domain.csproj" />
+  <Project Path="src/Dotnet/UI/AIPlayground.UI.Infrastructure/AIPlayground.UI.Infrastructure.csproj" />
+  <Project Path="src/Dotnet/UI/AIPlayground.UI.PresentationLayer/AIPlayground.UI.PresentationLayer.csproj" Id="b497968a-13ca-436f-a7bb-fb123d912fea" />
+  <Project Path="src/Dotnet/UI/AIPlayground.UI/AIPlayground.UI.csproj" />
+</Solution>

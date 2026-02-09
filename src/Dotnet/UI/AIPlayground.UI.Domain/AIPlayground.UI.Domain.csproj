@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="FluentResults" Version="4.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.2" />
+    <PackageReference Include="Kmaraszkiewicz86.SimpleCqrs" Version="0.1.4" />
   </ItemGroup>
 
 </Project>
