@@ -20,7 +20,7 @@ namespace AIPlayground.UI.PresentationLayer.ViewModels
         private string _response = string.Empty;
 
         [ObservableProperty]
-        private bool _isBusy = false;
+        private bool _isBusy;
 
         [ObservableProperty]
         private string _errorMessage = string.Empty;

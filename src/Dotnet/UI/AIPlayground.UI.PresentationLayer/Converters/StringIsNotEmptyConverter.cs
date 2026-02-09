@@ -14,7 +14,7 @@ namespace AIPlayground.UI.PresentationLayer.Converters
 
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("ConvertBack is not supported for StringIsNotEmptyConverter as it is designed for one-way bindings only.");
         }
     }
 }
