@@ -7,10 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// Get HttpClient timeout from configuration with default fallback
+var httpClientTimeoutSeconds = builder.Configuration.GetValue<int>("HttpClient:TimeoutSeconds", 30);
+
 // Configure HttpClient for external API communication
 builder.Services.AddHttpClient("ExternalApiClient", client =>
 {
-    client.Timeout = TimeSpan.FromSeconds(30);
+    client.Timeout = TimeSpan.FromSeconds(httpClientTimeoutSeconds);
 });
 
 // Register services

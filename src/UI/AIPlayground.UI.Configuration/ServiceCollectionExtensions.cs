@@ -9,16 +9,18 @@ namespace AIPlayground.UI.Configuration;
 /// </summary>
 public static class ServiceCollectionExtensions
 {
+    private const int DefaultTimeoutSeconds = 30;
+
     /// <summary>
     /// Adds HTTP client services to the service collection
     /// </summary>
-    public static IServiceCollection AddHttpServices(this IServiceCollection services, string baseAddress)
+    public static IServiceCollection AddHttpServices(this IServiceCollection services, string baseAddress, int timeoutSeconds = DefaultTimeoutSeconds)
     {
         // Register HttpClient factory
         services.AddHttpClient("ApiClient", client =>
         {
             client.BaseAddress = new Uri(baseAddress);
-            client.Timeout = TimeSpan.FromSeconds(30);
+            client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
         });
 
         // Register HTTP service
@@ -30,9 +32,9 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Adds all UI services to the service collection
     /// </summary>
-    public static IServiceCollection AddUIServices(this IServiceCollection services, string apiBaseAddress)
+    public static IServiceCollection AddUIServices(this IServiceCollection services, string apiBaseAddress, int timeoutSeconds = DefaultTimeoutSeconds)
     {
-        services.AddHttpServices(apiBaseAddress);
+        services.AddHttpServices(apiBaseAddress, timeoutSeconds);
         return services;
     }
 }
