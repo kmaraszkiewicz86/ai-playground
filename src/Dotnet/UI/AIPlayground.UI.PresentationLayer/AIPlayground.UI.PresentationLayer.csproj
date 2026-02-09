@@ -18,7 +18,12 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Kmaraszkiewicz86.SimpleCqrs" Version="0.1.4" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AIPlayground.UI.Domain\AIPlayground.UI.Domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

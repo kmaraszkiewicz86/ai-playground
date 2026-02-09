@@ -64,4 +64,16 @@
   <data name="AppTitle" xml:space="preserve">
     <value>AIPlayground</value>
   </data>
+  <data name="AskQuestion" xml:space="preserve">
+    <value>Zadaj pytanie:</value>
+  </data>
+  <data name="QuestionPlaceholder" xml:space="preserve">
+    <value>Wpisz swoje pytanie do ChatGPT...</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Wyślij</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Wynik:</value>
+  </data>
 </root>
