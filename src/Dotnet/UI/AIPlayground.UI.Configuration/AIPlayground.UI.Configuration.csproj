@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AIPlayground.UI.Domain\AIPlayground.UI.Domain.csproj" />
     <ProjectReference Include="..\AIPlayground.UI.Infrastructure\AIPlayground.UI.Infrastructure.csproj" />
+    <ProjectReference Include="..\AIPlayground.UI.ApplicationLayer\AIPlayground.UI.ApplicationLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

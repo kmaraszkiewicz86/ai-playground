@@ -1,5 +1,7 @@
+using AIPlayground.UI.ApplicationLayer.Queries;
 using AIPlayground.UI.Domain.Interfaces;
 using AIPlayground.UI.Infrastructure.Services;
+using SimpleCqrs;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AIPlayground.UI.Configuration;
@@ -32,6 +34,10 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddUIServices(this IServiceCollection services, string chatGptApiBaseAddress, int timeoutSeconds = DefaultTimeoutSeconds)
     {
         services.AddChatGptHttpServices(chatGptApiBaseAddress, timeoutSeconds);
+        
+        // Configure SimpleCqrs
+        services.ConfigureSimpleCqrs(typeof(GetChatGptAnswerQueryHandler).Assembly);
+        
         return services;
     }
 }

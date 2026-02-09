@@ -1,4 +1,5 @@
 using AIPlayground.Api.Domain.Interfaces;
+using FluentResults;
 using Microsoft.Extensions.Logging;
 
 namespace AIPlayground.Api.Infrastructure.Services;
@@ -19,19 +20,28 @@ public class ChatGptHttpService : IChatGptHttpService
     }
 
     /// <inheritdoc/>
-    public async Task<string> SendPromptAsync(string prompt)
+    public async Task<Result<string>> SendPromptAsync(string prompt)
     {
         try
         {
             var content = new StringContent(prompt, System.Text.Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync(ChatGptEndpoint, content);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                _logger.LogError("ChatGPT API returned error status {StatusCode}: {Error}", 
+                    response.StatusCode, errorContent);
+                return Result.Fail($"API request failed with status {response.StatusCode}: {errorContent}");
+            }
+            
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return Result.Ok(responseContent);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error sending request to ChatGPT API");
-            throw;
+            return Result.Fail(new Error("Failed to send request to ChatGPT API").CausedBy(ex));
         }
     }
 }

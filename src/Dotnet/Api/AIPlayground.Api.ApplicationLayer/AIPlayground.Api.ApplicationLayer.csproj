@@ -4,6 +4,10 @@
     <ProjectReference Include="..\AIPlayground.Api.Domain\AIPlayground.Api.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Kmaraszkiewicz86.SimpleCqrs" Version="0.1.4" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

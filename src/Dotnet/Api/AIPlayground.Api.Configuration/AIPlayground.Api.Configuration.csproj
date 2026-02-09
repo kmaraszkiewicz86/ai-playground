@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AIPlayground.Api.Domain\AIPlayground.Api.Domain.csproj" />
     <ProjectReference Include="..\AIPlayground.Api.Infrastructure\AIPlayground.Api.Infrastructure.csproj" />
+    <ProjectReference Include="..\AIPlayground.Api.ApplicationLayer\AIPlayground.Api.ApplicationLayer.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Kmaraszkiewicz86.SimpleCqrs" Version="0.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AIPlayground.UI.Domain\AIPlayground.UI.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

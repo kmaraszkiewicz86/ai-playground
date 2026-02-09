@@ -1,4 +1,5 @@
 using AIPlayground.UI.Domain.Interfaces;
+using FluentResults;
 
 namespace AIPlayground.UI.Infrastructure.Services;
 
@@ -16,11 +17,25 @@ public class ChatGptHttpService : IChatGptHttpService
     }
 
     /// <inheritdoc/>
-    public async Task<string> SendPromptAsync(string prompt)
+    public async Task<Result<string>> SendPromptAsync(string prompt)
     {
-        var httpContent = new StringContent(prompt, System.Text.Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync(ChatGptEndpoint, httpContent);
-        response.EnsureSuccessStatusCode();
-        return await response.Content.ReadAsStringAsync();
+        try
+        {
+            var httpContent = new StringContent(prompt, System.Text.Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(ChatGptEndpoint, httpContent);
+            
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                return Result.Fail($"API request failed with status {response.StatusCode}: {errorContent}");
+            }
+            
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return Result.Ok(responseContent);
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail(new Error("Failed to send request to ChatGPT API").CausedBy(ex));
+        }
     }
 }
