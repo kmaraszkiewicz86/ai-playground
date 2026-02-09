@@ -9,19 +9,23 @@ AIPlayground is a .NET-based solution demonstrating Domain-Driven Design (DDD) p
 ```
 AIPlayground/
 ├── src/
-│   ├── UI/                           # User Interface Projects
-│   │   ├── PresentationLayer/        # UI Resources and Localization
-│   │   ├── Domain/                   # Core Business Logic & Interfaces
-│   │   ├── ApplicationLayer/         # Application Use Cases
-│   │   ├── Infrastructure/           # External Service Implementations
-│   │   └── Configuration/            # DI Configuration
-│   └── Api/                          # API Projects
-│       ├── AIPlayground.Api/         # ASP.NET Core Minimal API
-│       ├── Api.Domain/               # API Core Domain
-│       ├── Api.ApplicationLayer/     # API Application Logic
-│       ├── Api.Infrastructure/       # API Infrastructure
-│       └── PythonApi/                # Python HTTP Server
-└── AIPlayground.slnx                 # Solution File
+│   ├── Dotnet/                       # .NET Projects
+│   │   ├── UI/                       # User Interface Projects
+│   │   │   ├── PresentationLayer/    # UI Resources and Localization
+│   │   │   ├── Domain/               # Core Business Logic & Interfaces
+│   │   │   ├── ApplicationLayer/     # Application Use Cases
+│   │   │   ├── Infrastructure/       # External Service Implementations
+│   │   │   └── Configuration/        # DI Configuration
+│   │   └── Api/                      # API Projects
+│   │       ├── AIPlayground.Api/     # ASP.NET Core Minimal API
+│   │       ├── Api.Domain/           # API Core Domain
+│   │       ├── Api.ApplicationLayer/ # API Application Logic
+│   │       ├── Api.Infrastructure/   # API Infrastructure
+│   │       ├── Api.Configuration/    # API DI Configuration
+│   │       └── Api.PresentationLayer/# API Presentation
+│   └── Python/                       # Python Projects
+│       └── main.py                   # Python HTTP Server
+└── AIPlayground.sln                  # Solution File
 ```
 
 ## Architectural Patterns
@@ -35,8 +39,7 @@ The solution follows DDD principles with clear separation of concerns:
 - Defines interfaces for infrastructure dependencies
 - No dependencies on other layers
 - Examples:
-  - `IHttpService` - HTTP communication interface
-  - `IExternalApiService` - External API integration interface
+  - `IChatGptHttpService` - ChatGPT HTTP communication interface
 
 #### 2. Application Layer
 - Implements use cases and application logic
@@ -47,16 +50,17 @@ The solution follows DDD principles with clear separation of concerns:
 - Implements domain interfaces
 - Handles external dependencies (HTTP, databases, etc.)
 - Examples:
-  - `HttpService` - IHttpClientFactory-based HTTP service
-  - `ExternalApiService` - External API communication service
+  - `ChatGptHttpService` - HttpClient-based ChatGPT service
 
 #### 4. Presentation Layer
 - UI resources and components
 - Localization resources (Translator.resx)
+- API presentation layer
 
 #### 5. Configuration Layer
 - Dependency Injection setup
 - Service registration extensions
+- HttpClient configuration
 
 ### Dependency Injection
 
@@ -64,16 +68,17 @@ All services are configured through extension methods:
 
 ```csharp
 // UI Services
-services.AddUIServices("https://api-base-url", timeoutSeconds: 30);
+services.AddUIServices("https://api.openai.com", timeoutSeconds: 30);
 
-// API Services (configured automatically via Program.cs)
+// API Services
+services.AddApiServices("https://api.openai.com", timeoutSeconds: 30);
 ```
 
 ### HTTP Client Pattern
 
-Both UI and API projects use `IHttpClientFactory` for HTTP communication:
+Both UI and API projects use typed `HttpClient` for HTTP communication:
 
-- Named clients for different purposes
+- Typed clients injected via DI
 - Configurable timeouts via parameters/configuration
 - Proper resource management
 - Resilient HTTP calls
@@ -83,7 +88,7 @@ Both UI and API projects use `IHttpClientFactory` for HTTP communication:
 ### .NET Components
 - **.NET 10.0**: Core framework
 - **ASP.NET Core Minimal API**: Lightweight API framework
-- **IHttpClientFactory**: HTTP client management
+- **HttpClient**: Typed HTTP client management
 - **Microsoft.Extensions.DependencyInjection**: DI container
 
 ### Python Components
@@ -96,6 +101,9 @@ Both UI and API projects use `IHttpClientFactory` for HTTP communication:
 
 ```json
 {
+  "ChatGptApi": {
+    "BaseAddress": "https://api.openai.com"
+  },
   "HttpClient": {
     "TimeoutSeconds": 30
   }
@@ -106,7 +114,7 @@ Both UI and API projects use `IHttpClientFactory` for HTTP communication:
 
 ```csharp
 services.AddUIServices(
-    apiBaseAddress: "https://api.example.com",
+    chatGptApiBaseAddress: "https://api.openai.com",
     timeoutSeconds: 30  // Optional, defaults to 30
 );
 ```
@@ -124,16 +132,17 @@ services.AddUIServices(
 1. **Clean Architecture**: Clear separation of concerns with DDD layers
 2. **Dependency Inversion**: Domain defines interfaces, infrastructure implements
 3. **Configuration over Convention**: Timeout and URLs configurable
-4. **Resource Management**: Proper use of IHttpClientFactory
+4. **Resource Management**: Proper use of typed HttpClient
 5. **Logging**: Structured logging in infrastructure services
 6. **Error Handling**: Exception handling in service implementations
 7. **Code Quality**: No magic numbers, all extracted to configuration
+8. **Endpoint Encapsulation**: API endpoints defined in service methods, not as parameters
 
 ## Future Enhancements
 
 Potential areas for expansion:
 - Add actual MAUI UI application consuming the services
-- Implement ChatGPT API integration
+- Implement full ChatGPT API integration
 - Add authentication/authorization
 - Implement CQRS pattern in Application layer
 - Add unit and integration tests

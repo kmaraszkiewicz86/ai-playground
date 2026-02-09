@@ -1,5 +1,4 @@
-using AIPlayground.Api.Domain.Interfaces;
-using AIPlayground.Api.Infrastructure.Services;
+using AIPlayground.Api.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,17 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-// Get HttpClient timeout from configuration with default fallback
+// Get ChatGPT API configuration
+var chatGptApiBaseAddress = builder.Configuration.GetValue<string>("ChatGptApi:BaseAddress", "https://api.openai.com");
 var httpClientTimeoutSeconds = builder.Configuration.GetValue<int>("HttpClient:TimeoutSeconds", 30);
 
-// Configure HttpClient for external API communication
-builder.Services.AddHttpClient("ExternalApiClient", client =>
-{
-    client.Timeout = TimeSpan.FromSeconds(httpClientTimeoutSeconds);
-});
-
-// Register services
-builder.Services.AddScoped<IExternalApiService, ExternalApiService>();
+// Register services using Configuration layer
+builder.Services.AddApiServices(chatGptApiBaseAddress, httpClientTimeoutSeconds);
 
 var app = builder.Build();
 

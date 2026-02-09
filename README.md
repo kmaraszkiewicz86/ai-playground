@@ -4,23 +4,29 @@ A .NET MAUI application with a lightweight API, designed for learning and experi
 
 ## Project Structure
 
-The solution follows Domain-Driven Design (DDD) principles and is organized into two main sections:
+The solution follows Domain-Driven Design (DDD) principles and is organized into language-specific folders:
 
-### UI Projects (src/UI/)
+### .NET Projects (src/Dotnet/)
+
+#### UI Projects (src/Dotnet/UI/)
 - **AIPlayground.UI.PresentationLayer**: .NET class library with Translator resource for UI localization
-- **AIPlayground.UI.Domain**: Core domain layer containing interfaces (IHttpService)
+- **AIPlayground.UI.Domain**: Core domain layer containing interfaces (`IChatGptHttpService`)
 - **AIPlayground.UI.ApplicationLayer**: Application logic and use cases
-- **AIPlayground.UI.Infrastructure**: Infrastructure implementations including HttpService
-- **AIPlayground.UI.Configuration**: Dependency injection configuration with ServiceCollectionExtensions
+- **AIPlayground.UI.Infrastructure**: Infrastructure implementations including `ChatGptHttpService`
+- **AIPlayground.UI.Configuration**: Dependency injection configuration with `ServiceCollectionExtensions`
 
-### API Projects (src/Api/)
+#### API Projects (src/Dotnet/Api/)
 - **AIPlayground.Api**: ASP.NET Core Minimal API with DDD layers
   - Simple GET endpoint at `/api/hello`
-  - Support for external API communication (e.g., ChatGPT API)
-- **AIPlayground.Api.Domain**: Domain interfaces (IExternalApiService)
+  - Support for ChatGPT API communication
+- **AIPlayground.Api.Domain**: Domain interfaces (`IChatGptHttpService`)
 - **AIPlayground.Api.ApplicationLayer**: Application logic layer
-- **AIPlayground.Api.Infrastructure**: Infrastructure implementations including ExternalApiService
-- **PythonApi**: Lightweight Python HTTP server
+- **AIPlayground.Api.Infrastructure**: Infrastructure implementations including `ChatGptHttpService`
+- **AIPlayground.Api.Configuration**: DI configuration with `ServiceCollectionExtensions`
+- **AIPlayground.Api.PresentationLayer**: API presentation layer
+
+### Python Projects (src/Python/)
+- **main.py**: Lightweight Python HTTP server
 
 ## Getting Started
 
@@ -37,7 +43,7 @@ dotnet build
 ### Running the .NET API
 
 ```bash
-cd src/Api/AIPlayground.Api
+cd src/Dotnet/Api/AIPlayground.Api
 dotnet run
 ```
 
@@ -46,7 +52,7 @@ The API will be available at http://localhost:5238
 ### Running the Python API
 
 ```bash
-cd src/Api/PythonApi
+cd src/Python
 python3 main.py
 ```
 
@@ -66,7 +72,7 @@ Example response:
 ```
 
 ### Python API
-- `GET /api/hello` - Returns a hello world message from Python API
+- `GET /api/hello` or `GET /` - Returns a hello world message from Python API
 
 Example response:
 ```json
@@ -80,29 +86,35 @@ Example response:
 
 ### UI Architecture
 The UI follows a clean architecture with clear separation of concerns:
-- **Domain**: Contains business logic and interfaces
-- **Infrastructure**: Implements domain interfaces using IHttpClientFactory
+- **Domain**: Contains business logic and interfaces (`IChatGptHttpService`)
+- **Infrastructure**: Implements domain interfaces using typed HttpClient
 - **Configuration**: Configures dependency injection for services
 - **PresentationLayer**: Contains UI resources and translations
 
 ### API Architecture
 The API uses minimal API pattern with DDD layers:
-- **Domain**: Defines contracts for external services
-- **Infrastructure**: Implements external API communication
+- **Domain**: Defines contracts for ChatGPT services (`IChatGptHttpService`)
+- **Infrastructure**: Implements ChatGPT API communication using HttpClient
+- **Configuration**: Configures dependency injection and HttpClient
+- **PresentationLayer**: API presentation layer
 - **API Project**: Hosts the endpoints and configures services
 
 ## HTTP Client Configuration
 
-The UI project uses IHttpClientFactory configured in the Configuration layer:
+Both UI and API projects use typed HttpClient configured in the Configuration layer:
 
 ```csharp
-services.AddUIServices("https://api-base-url");
+// UI
+services.AddUIServices("https://api.openai.com", timeoutSeconds: 30);
+
+// API
+services.AddApiServices("https://api.openai.com", timeoutSeconds: 30);
 ```
 
 This configures:
-- Named HttpClient "ApiClient" with base address
-- Scoped IHttpService implementation
-- 30-second timeout
+- Typed HttpClient injected via DI
+- Base address and timeout configuration
+- Scoped service lifetime
 
 ## License
 

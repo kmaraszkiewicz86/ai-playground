@@ -12,19 +12,16 @@ public static class ServiceCollectionExtensions
     private const int DefaultTimeoutSeconds = 30;
 
     /// <summary>
-    /// Adds HTTP client services to the service collection
+    /// Adds ChatGPT HTTP client services to the service collection
     /// </summary>
-    public static IServiceCollection AddHttpServices(this IServiceCollection services, string baseAddress, int timeoutSeconds = DefaultTimeoutSeconds)
+    public static IServiceCollection AddChatGptHttpServices(this IServiceCollection services, string baseAddress, int timeoutSeconds = DefaultTimeoutSeconds)
     {
-        // Register HttpClient factory
-        services.AddHttpClient("ApiClient", client =>
+        // Register HttpClient factory for ChatGPT
+        services.AddHttpClient<IChatGptHttpService, ChatGptHttpService>(client =>
         {
             client.BaseAddress = new Uri(baseAddress);
             client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
         });
-
-        // Register HTTP service
-        services.AddScoped<IHttpService, HttpService>();
 
         return services;
     }
@@ -32,9 +29,9 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Adds all UI services to the service collection
     /// </summary>
-    public static IServiceCollection AddUIServices(this IServiceCollection services, string apiBaseAddress, int timeoutSeconds = DefaultTimeoutSeconds)
+    public static IServiceCollection AddUIServices(this IServiceCollection services, string chatGptApiBaseAddress, int timeoutSeconds = DefaultTimeoutSeconds)
     {
-        services.AddHttpServices(apiBaseAddress, timeoutSeconds);
+        services.AddChatGptHttpServices(chatGptApiBaseAddress, timeoutSeconds);
         return services;
     }
 }
