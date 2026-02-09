@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Api/">
+    <Project Path="src/Api/AIPlayground.Api.ApplicationLayer/AIPlayground.Api.ApplicationLayer.csproj" />
+    <Project Path="src/Api/AIPlayground.Api.Domain/AIPlayground.Api.Domain.csproj" />
+    <Project Path="src/Api/AIPlayground.Api.Infrastructure/AIPlayground.Api.Infrastructure.csproj" />
+    <Project Path="src/Api/AIPlayground.Api/AIPlayground.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/UI/">
+    <Project Path="src/UI/AIPlayground.UI.ApplicationLayer/AIPlayground.UI.ApplicationLayer.csproj" />
+    <Project Path="src/UI/AIPlayground.UI.Configuration/AIPlayground.UI.Configuration.csproj" />
+    <Project Path="src/UI/AIPlayground.UI.Domain/AIPlayground.UI.Domain.csproj" />
+    <Project Path="src/UI/AIPlayground.UI.Infrastructure/AIPlayground.UI.Infrastructure.csproj" />
+    <Project Path="src/UI/AIPlayground.UI.PresentationLayer/AIPlayground.UI.PresentationLayer.csproj" />
+  </Folder>
+</Solution>
