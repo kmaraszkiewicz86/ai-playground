@@ -35,7 +35,7 @@ app.MapPost("/api/processAIQuestionAsync", async (ProcessAIQuestionRequest reque
     {
         IsSuccess = result.IsSuccess,
         Answer = result.IsSuccess ? result.Value : null,
-        Errors = result.IsFailed ? result.Errors.Select(e => e.Message).ToList() : new List<string>()
+        Errors = result.IsFailed ? [.. result.Errors.Select(e => e.Message)] : []
     };
     
     return result.IsSuccess ? Results.Ok(response) : Results.BadRequest(response);

@@ -3,35 +3,39 @@ using CommunityToolkit.Mvvm.Input;
 using AIPlayground.UI.Domain.Models;
 using AIPlayground.UI.PresentationLayer.Resources;
 using SimpleCqrs;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using System.Windows.Input;
 
 namespace AIPlayground.UI.PresentationLayer.ViewModels
 {
-    public partial class ChatGptPromptViewModel : ObservableObject
+    public partial class ChatGptPromptViewModel(ISimpleMediator _mediator, ILogger<ChatGptPromptViewModel>? _logger) : ObservableObject
     {
-        private readonly IAsyncQueryDispatcher _queryDispatcher;
-        private readonly ILogger<ChatGptPromptViewModel>? _logger;
-
-        [ObservableProperty]
-        private string _question = string.Empty;
-
-        [ObservableProperty]
-        private string _response = string.Empty;
-
-        [ObservableProperty]
-        private bool _isBusy;
-
-        [ObservableProperty]
-        private string _errorMessage = string.Empty;
-
-        public ChatGptPromptViewModel(IAsyncQueryDispatcher queryDispatcher, ILogger<ChatGptPromptViewModel>? logger = null)
+        public string Question
         {
-            _queryDispatcher = queryDispatcher ?? throw new ArgumentNullException(nameof(queryDispatcher));
-            _logger = logger;
+            get => field = string.Empty;
+            set => SetProperty(ref field, value);
         }
 
-        [RelayCommand]
+        public string Response
+        {
+            get => field = string.Empty;
+            set => SetProperty(ref field, value);
+        }
+
+        public bool IsBusy
+        {
+            get => field;
+            set => SetProperty(ref field, value);
+        }
+
+        public string ErrorMessage
+        {
+            get => field = string.Empty;
+            set => SetProperty(ref field, value);
+        }
+
+        public ICommand SubmitCommand => new AsyncRelayCommand(SubmitQuestionAsync);
+
         private async Task SubmitQuestionAsync()
         {
             if (string.IsNullOrWhiteSpace(Question))
@@ -47,7 +51,7 @@ namespace AIPlayground.UI.PresentationLayer.ViewModels
             try
             {
                 var query = new GetChatGptAnswerQuery { Prompt = Question };
-                var result = await _queryDispatcher.DispatchAsync(query);
+                var result = await _mediator.GetQueryAsync(query);
 
                 if (result.IsSuccess)
                 {

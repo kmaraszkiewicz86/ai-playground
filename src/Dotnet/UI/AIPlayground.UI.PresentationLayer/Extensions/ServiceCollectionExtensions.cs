@@ -15,6 +15,7 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static IServiceCollection AddViewModels(this IServiceCollection services)
     {
+        services.AddTransient<AIDemoListViewModel>();
         services.AddTransient<ChatGptPromptViewModel>();
 
         return services;
@@ -25,6 +26,7 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static IServiceCollection AddViews(this IServiceCollection services)
     {
+        services.AddTransient<AIDemoList>();
         services.AddTransient<ChatGptPrompt>();
 
         return services;

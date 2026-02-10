@@ -3,12 +3,12 @@
     x:Class="AIPlayground.UI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:AIPlayground.UI"
+    xmlns:views="clr-namespace:AIPlayground.UI.PresentationLayer.Views;assembly=AIPlayground.UI.PresentationLayer"
     Title="AIPlayground.UI">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="AI Demos"
+        ContentTemplate="{DataTemplate views:AIDemoList}"
+        Route="AIDemoList" />
 
 </Shell>

@@ -5,6 +5,8 @@
         public AppShell()
         {
             InitializeComponent();
+            
+            Routing.RegisterRoute("ChatGptPrompt", typeof(AIPlayground.UI.PresentationLayer.Views.ChatGptPrompt));
         }
     }
 }
