@@ -9,7 +9,7 @@ public class GetChatGptAnswerQuery : IQuery<Result<string>>
     public string Prompt { get; set; } = string.Empty;
 }
 
-public class GetChatGptAnswerQueryHandler : IQueryHandler<GetChatGptAnswerQuery, Result<string>>
+public class GetChatGptAnswerQueryHandler : IAsyncQueryHandler<GetChatGptAnswerQuery, Result<string>>
 {
     private readonly IChatGptHttpService _service;
 
@@ -18,7 +18,7 @@ public class GetChatGptAnswerQueryHandler : IQueryHandler<GetChatGptAnswerQuery,
         _service = service ?? throw new ArgumentNullException(nameof(service));
     }
 
-    public async Task<Result<string>> Handle(GetChatGptAnswerQuery query)
+    public async Task<Result<string>> HandleAsync(GetChatGptAnswerQuery query, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(query.Prompt))
         {
