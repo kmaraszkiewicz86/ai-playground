@@ -12,15 +12,18 @@ namespace AIPlayground.UI.Configuration;
 public static class ServiceCollectionExtensions
 {
     private const int DefaultTimeoutSeconds = 30;
+    private const string DefaultApiBaseAddress = "https://localhost:7000"; // Default API base address
 
     /// <summary>
     /// Adds ChatGPT HTTP client services to the service collection
     /// </summary>
-    public static IServiceCollection AddChatGptHttpServices(this IServiceCollection services)
+    /// <param name="services">The service collection</param>
+    /// <param name="apiBaseAddress">The base address of the API</param>
+    public static IServiceCollection AddChatGptHttpServices(this IServiceCollection services, string? apiBaseAddress = null)
     {
-        string baseAddress = "https://api.openai.com/v1/"; // Base URL for OpenAI API
+        string baseAddress = apiBaseAddress ?? DefaultApiBaseAddress;
 
-        // Register HttpClient factory for ChatGPT
+        // Register HttpClient factory for API
         services.AddHttpClient<IChatGptHttpService, ChatGptHttpService>(client =>
         {
             client.BaseAddress = new Uri(baseAddress);

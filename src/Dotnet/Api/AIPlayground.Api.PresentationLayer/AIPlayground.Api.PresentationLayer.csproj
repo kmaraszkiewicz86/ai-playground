@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AIPlayground.Api.ApplicationLayer\AIPlayground.Api.ApplicationLayer.csproj" />
+    <ProjectReference Include="..\AIPlayground.Api.Domain\AIPlayground.Api.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

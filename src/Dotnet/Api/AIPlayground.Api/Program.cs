@@ -1,4 +1,7 @@
+using AIPlayground.Api.ApplicationLayer.Queries;
 using AIPlayground.Api.Configuration;
+using AIPlayground.Api.PresentationLayer.Models;
+using SimpleCqrs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,36 +26,21 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapPost("/api/processAIQuestionAsync", async (ProcessAIQuestionRequest request, ISimpleMediator mediator) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-// Simple GET endpoint as requested
-app.MapGet("/api/hello", () =>
-{
-    return Results.Ok(new { message = "Hello from AIPlayground API", timestamp = DateTime.UtcNow });
+    var query = new GetChatGptAnswerQuery { Prompt = request.Question };
+    var result = await mediator.GetQueryAsync(query);
+    
+    var response = new ProcessAIQuestionResponse
+    {
+        IsSuccess = result.IsSuccess,
+        Answer = result.IsSuccess ? result.Value : null,
+        Errors = result.IsFailed ? result.Errors.Select(e => e.Message).ToList() : new List<string>()
+    };
+    
+    return result.IsSuccess ? Results.Ok(response) : Results.BadRequest(response);
 })
-.WithName("GetHello")
-.WithTags("General");
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+.WithName("ProcessAIQuestionAsync")
+.WithTags("AI");
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
