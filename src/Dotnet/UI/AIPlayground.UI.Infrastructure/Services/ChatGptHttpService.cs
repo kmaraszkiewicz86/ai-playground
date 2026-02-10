@@ -54,7 +54,7 @@ public class ChatGptHttpService : IChatGptHttpService
             
             if (!apiResponse.IsSuccess)
             {
-                return Result.Fail(string.Join(", ", apiResponse.Errors));
+                return Result.Fail(string.Join(", ", apiResponse.Errors ?? new List<string>()));
             }
             
             return Result.Ok(apiResponse.Answer ?? string.Empty);
