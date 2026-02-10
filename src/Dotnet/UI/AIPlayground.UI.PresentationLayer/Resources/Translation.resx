@@ -64,4 +64,22 @@
   <data name="AppTitle" xml:space="preserve">
     <value>AIPlayground</value>
   </data>
+  <data name="AskQuestion" xml:space="preserve">
+    <value>Ask Question:</value>
+  </data>
+  <data name="QuestionPlaceholder" xml:space="preserve">
+    <value>Enter your question for ChatGPT...</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result:</value>
+  </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>Please enter a question</value>
+  </data>
+  <data name="ErrorProcessingRequest" xml:space="preserve">
+    <value>An error occurred while processing your request. Please try again.</value>
+  </data>
 </root>
