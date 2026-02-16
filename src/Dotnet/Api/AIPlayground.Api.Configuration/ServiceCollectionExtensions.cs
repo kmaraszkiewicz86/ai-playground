@@ -1,8 +1,8 @@
-using AIPlayground.Api.ApplicationLayer.Queries;
 using AIPlayground.Api.Domain.Interfaces;
 using AIPlayground.Api.Infrastructure.Services;
 using SimpleCqrs;
 using Microsoft.Extensions.DependencyInjection;
+using AIPlayground.Api.ApplicationLayer.Queries.GetChatGptAnswerQuery;
 
 namespace AIPlayground.Api.Configuration;
 

@@ -12,7 +12,7 @@ namespace AIPlayground.UI.Configuration;
 public static class ServiceCollectionExtensions
 {
     private const int DefaultTimeoutSeconds = 30;
-    private const string DefaultApiBaseAddress = "https://localhost:7000"; // Default API base address
+    private const string DefaultApiBaseAddress = "https://localhost:7278"; // Default API base address
 
     /// <summary>
     /// Adds ChatGPT HTTP client services to the service collection

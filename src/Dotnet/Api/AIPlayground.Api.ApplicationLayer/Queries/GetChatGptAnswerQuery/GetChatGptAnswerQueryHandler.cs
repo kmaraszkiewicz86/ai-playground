@@ -2,12 +2,7 @@ using AIPlayground.Api.Domain.Interfaces;
 using FluentResults;
 using SimpleCqrs;
 
-namespace AIPlayground.Api.ApplicationLayer.Queries;
-
-public class GetChatGptAnswerQuery : IQuery<Result<string>>
-{
-    public string Prompt { get; set; } = string.Empty;
-}
+namespace AIPlayground.Api.ApplicationLayer.Queries.GetChatGptAnswerQuery;
 
 public class GetChatGptAnswerQueryHandler : IAsyncQueryHandler<GetChatGptAnswerQuery, Result<string>>
 {

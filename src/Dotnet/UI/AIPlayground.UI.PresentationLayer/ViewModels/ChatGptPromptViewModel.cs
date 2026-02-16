@@ -12,15 +12,15 @@ namespace AIPlayground.UI.PresentationLayer.ViewModels
     {
         public string Question
         {
-            get => field = string.Empty;
+            get => field;
             set => SetProperty(ref field, value);
-        }
+        } = string.Empty;
 
         public string Response
         {
-            get => field = string.Empty;
+            get => field;
             set => SetProperty(ref field, value);
-        }
+        } = string.Empty;
 
         public bool IsBusy
         {
@@ -30,9 +30,9 @@ namespace AIPlayground.UI.PresentationLayer.ViewModels
 
         public string ErrorMessage
         {
-            get => field = string.Empty;
+            get => field;
             set => SetProperty(ref field, value);
-        }
+        } = string.Empty;
 
         public ICommand SubmitCommand => new AsyncRelayCommand(SubmitQuestionAsync);
 

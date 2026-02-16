@@ -1,7 +1,5 @@
-using AIPlayground.Api.ApplicationLayer.Queries;
 using AIPlayground.Api.Configuration;
-using AIPlayground.Api.PresentationLayer.Models;
-using SimpleCqrs;
+using AIPlayground.Api.PresentationLayer.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,21 +24,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/api/processAIQuestionAsync", async (ProcessAIQuestionRequest request, ISimpleMediator mediator) =>
-{
-    var query = new GetChatGptAnswerQuery { Prompt = request.Question };
-    var result = await mediator.GetQueryAsync(query);
-    
-    var response = new ProcessAIQuestionResponse
-    {
-        IsSuccess = result.IsSuccess,
-        Answer = result.IsSuccess ? result.Value : null,
-        Errors = result.IsFailed ? [.. result.Errors.Select(e => e.Message)] : []
-    };
-    
-    return result.IsSuccess ? Results.Ok(response) : Results.BadRequest(response);
-})
-.WithName("ProcessAIQuestionAsync")
-.WithTags("AI");
+app.MapAIEndpoints();
 
 app.Run();
+

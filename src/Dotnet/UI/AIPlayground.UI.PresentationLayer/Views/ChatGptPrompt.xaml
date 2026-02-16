@@ -35,8 +35,7 @@
                 Grid.Row="1"
                 Text="{Binding Question}"
                 Placeholder="{x:Static resources:Translation.QuestionPlaceholder}"
-                HeightRequest="100"
-                AutoSize="TextChanges" />
+                HeightRequest="100" />
             
             <!-- Submit Button -->
             <Button 

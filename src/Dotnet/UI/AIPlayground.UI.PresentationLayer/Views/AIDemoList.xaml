@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AIPlayground.UI.PresentationLayer.Views.AIDemoList"
+             x:Name="this"
              Title="AI Demos">
     <ScrollView>
         <Grid Padding="20" RowSpacing="15">
@@ -41,7 +42,7 @@
                             BackgroundColor="White">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer 
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.NavigateToDemoCommand}"
+                                    Command="{Binding Source={x:Reference this}, Path=BindingContext.NavigateToPageCommand}" 
                                     CommandParameter="{Binding Route}" />
                             </Border.GestureRecognizers>
                             
@@ -59,6 +60,7 @@
                                     </Grid.RowDefinitions>
                                     
                                     <Label 
+                                        TextColor="#000"
                                         Grid.Row="1"
                                         Text="{Binding Title}"
                                         FontSize="18" />
