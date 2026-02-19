@@ -1,8 +1,9 @@
+using AIPlayground.Api.ApplicationLayer.Queries.GetChatGptAnswerQuery;
 using AIPlayground.Api.Domain.Interfaces;
 using AIPlayground.Api.Infrastructure.Services;
-using SimpleCqrs;
 using Microsoft.Extensions.DependencyInjection;
-using AIPlayground.Api.ApplicationLayer.Queries.GetChatGptAnswerQuery;
+using SimpleCqrs;
+using System.Net.Http.Headers;
 
 namespace AIPlayground.Api.Configuration;
 
@@ -23,6 +24,9 @@ public static class ServiceCollectionExtensions
         {
             client.BaseAddress = new Uri(baseAddress);
             client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
+            client.DefaultRequestHeaders.Authorization = 
+                new AuthenticationHeaderValue("Bearer", "***");
+
         });
 
         return services;

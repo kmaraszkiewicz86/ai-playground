@@ -1,6 +1,23 @@
 @AIPlayground.Api_HostAddress = http://localhost:5238
 
-GET {{AIPlayground.Api_HostAddress}}/weatherforecast/
+###
+
+POST {{AIPlayground.Api_HostAddress}}/api/processAIQuestionAsync
+Content-Type: application/json
 Accept: application/json
 
+{
+  "question": "What is the capital of France?",
+  "aiType": 0
+}
+
 ###
+
+POST {{AIPlayground.Api_HostAddress}}/api/processAIQuestionAsync
+Content-Type: application/json
+Accept: application/json
+
+{
+  "question": "Can you summarize the plot of The Matrix?",
+  "aiType": 1
+}

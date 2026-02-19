@@ -1,5 +1,8 @@
 using AIPlayground.Api.ApplicationLayer.Queries.GetChatGptAnswerQuery;
 using AIPlayground.Api.PresentationLayer.Models;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using SimpleCqrs;
 
 namespace AIPlayground.Api.PresentationLayer.Endpoints;
